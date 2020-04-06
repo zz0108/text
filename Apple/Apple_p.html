@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-align: center;
+        }
+        
+        div {
+            text-align: center;
+            flex-wrap: wrap;
+            height: 100px;
+        }
+        
+        button {
+            background-color: #fff;
+            width: 100px;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        button:hover {
+            background-color: #ccc;
+            cursor: pointer;
+        }
+        
+        .button {
+            background-color: #fff;
+            width: 100px;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        .button:hover {
+            background-color: #ccc;
+            cursor: pointer;
+        }
+        
+        .col-12 {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input type="button" value="IPhone" class="button" onclick="seletedata('IPhone11')">
+        <input type="button" value="IPad" class="button" onclick="seletedata('IPad')">
+        <input type="button" value="Mac" class="button" onclick="seletedata('MacBook Pro')">
+    </div>
+    <div class="col-12">
+        <div class="col-6">
+            <div class="container" id="container1">
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="container" id="container2">
+            </div>
+            <div class="container" id="container3">
+            </div>
+            <div class="container" id="container4">
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        //iPhone,iPad,Mac,Watch
+        var products = {
+            iphone: {
+                Name: {
+                    id: 'IPhone11',
+                    pic: 'iphone11-select-2019-family.jfif',
+                },
+                color: [{
+                    color: '白色',
+                    pic: 'iphone11-white-select-2019.png'
+                }, {
+                    color: '黑色',
+                    pic: 'iphone11-black-select-2019.png'
+                }, {
+                    color: '綠色',
+                    pic: 'iphone11-green-select-2019.png'
+                }],
+                price: [{
+                    size: '64GB',
+                    price: 'NT$24,900'
+                }, {
+                    size: '128GB',
+                    price: 'NT$26,900'
+                }, {
+                    size: '256GB',
+                    price: 'NT$30,400'
+                }],
+            },
+            ipad: {
+                Name: {
+                    id: 'IPad',
+                    pic: 'ipad-hero-unselected-201909_GEO_TW.jfif',
+                },
+                color: [{
+                    color: '灰色',
+                    pic: 'ipad-wifi-select-space-201909_GEO_TW.png'
+                }, {
+                    color: '銀色',
+                    pic: 'ipad-wifi-select-silver-201909_GEO_TW.png'
+                }, {
+                    color: '金色',
+                    pic: 'ipad-wifi-select-gold-201909_GEO_TW.png'
+                }],
+                price: [{
+                    size: '32GB',
+                    price: 'NT$10,900'
+                }, {
+                    size: '128GB',
+                    price: 'NT$15,400'
+                }],
+            },
+            mac: {
+                Name: {
+                    id: 'MacBook Pro',
+                    pic: 'mbp13touch-灰色-select-201807_GEO_TW.jfif',
+                },
+                color: [{
+                    color: '灰色',
+                    pic: 'mbp13touch-space-select-201807_GEO_TW.jfif'
+                }, {
+                    color: '銀色',
+                    pic: 'mbp13touch-silver-select-201807_GEO_TW.jfif'
+                }],
+                price: [{
+                    size: '128GB',
+                    price: 'NT$42,900'
+                }, {
+                    size: '256GB',
+                    price: 'NT$48,900'
+                }],
+            },
+        }
+        var selectMC = products;
+        var div1 = document.getElementById('container1');
+        var div2 = document.getElementById('container2');
+        var div3 = document.getElementById('container3');
+        var div4 = document.getElementById('container4');
+        var str = '';
+        var count = 1;
+
+        function seletedata(str) {
+            if (str == 'IPhone11') {
+                res();
+                selectMC = selectMC.iphone;
+                div1.innerHTML = `<img src='${selectMC.Name.pic}'/>`;
+                iphonecolorBTN();
+                iphonesizeBTN();
+            } else if (str == 'IPad') {
+                res();
+                selectMC = selectMC.ipad;
+                div1.innerHTML = `<img src='${selectMC.Name.pic}'/>`;
+                ipadcolorBTN();
+                ipadsizeBTN();
+            } else if (str == 'MacBook Pro') {
+                res();
+                selectMC = selectMC.mac;
+                div1.innerHTML = `<img src='${selectMC.Name.pic}'/>`;
+                maccolorBTN();
+                macsizeBTN();
+            }
+        }
+
+        function res() {
+            div1.innerHTML = '';
+            div2.innerHTML = '';
+            div3.innerHTML = '';
+            div4.innerHTML = '';
+            selectMC = products;
+        }
+
+        function iphonecolorBTN() {
+            selectMC.color.forEach(function(element) {
+                for (const prop in element) {
+                    if (prop == 'color') {
+                        div2.innerHTML += `<button onclick="iphoneselectcolor('${element[prop]}')">${element[prop]}</button>`
+                    }
+                }
+            })
+        }
+
+        function ipadcolorBTN() {
+            selectMC.color.forEach(function(element) {
+                for (const prop in element) {
+                    if (prop == 'color') {
+                        div2.innerHTML += `<button onclick="ipadselectcolor('${element[prop]}')">${element[prop]}</button>`
+                    }
+                }
+            })
+        }
+
+        function maccolorBTN() {
+            selectMC.color.forEach(function(element) {
+                for (const prop in element) {
+                    if (prop == 'color') {
+                        div2.innerHTML += `<button onclick="macselectcolor('${element[prop]}')">${element[prop]}</button>`
+                    }
+                }
+            })
+        }
+
+        function iphoneselectcolor(str) {
+            selectMC.color.forEach(function(element) {
+                for (const prop in element) {
+                    if (element[prop] == '白色') {
+                        div1.innerHTML = `<img src='iphone11-${str}-select-2019.png'/>`;
+                    } else if (element[prop] == '黑色') {
+                        div1.innerHTML = `<img src='iphone11-${str}-select-2019.png'/>`;
+                    } else if (element[prop] == '綠色') {
+                        div1.innerHTML = `<img src='iphone11-${str}-select-2019.png'/>`;
+                    }
+                }
+            })
+        }
+
+        function ipadselectcolor(str) {
+            selectMC.color.forEach(function(element) {
+                for (const prop in element) {
+                    if (element[prop] == '灰色') {
+                        div1.innerHTML = `<img src='ipad-wifi-select-${str}-201909_GEO_TW.png'/>`;
+                    } else if (element[prop] == '銀色') {
+                        div1.innerHTML = `<img src='ipad-wifi-select-${str}-201909_GEO_TW.png'/>`;
+                    } else if (element[prop] == '金色') {
+                        div1.innerHTML = `<img src='ipad-wifi-select-${str}-201909_GEO_TW.png'/>`;
+                    }
+                }
+            })
+        }
+
+        function macselectcolor(str) {
+            selectMC.color.forEach(function(element) {
+                for (const prop in element) {
+                    if (element[prop] == '灰色') {
+                        div1.innerHTML = `<img src='mbp13touch-${str}-select-201807_GEO_TW.jfif'/>`;
+                    } else if (element[prop] == '銀色') {
+                        div1.innerHTML = `<img src='mbp13touch-${str}-select-201807_GEO_TW.jfif'/>`;
+                    }
+                }
+            })
+        }
+
+        function iphonesizeBTN() {
+            selectMC.price.forEach(function(element) {
+                for (const prop in element) {
+                    if (prop == 'size') {
+                        div3.innerHTML += `<button onclick="iphoneselectprice('${element.price}')">${element[prop]}</button>`
+                    }
+                }
+            })
+        }
+
+        function ipadsizeBTN() {
+            selectMC.price.forEach(function(element) {
+                for (const prop in element) {
+                    if (prop == 'size') {
+                        div3.innerHTML += `<button onclick="ipadselectprice('${element.price}')">${element[prop]}</button>`
+                    }
+                }
+            })
+        }
+
+        function macsizeBTN() {
+            selectMC.price.forEach(function(element) {
+                for (const prop in element) {
+                    if (prop == 'size') {
+                        div3.innerHTML += `<button onclick="macselectprice('${element.price}')">${element[prop]}</button>`
+                    }
+                }
+            })
+        }
+
+        function iphoneselectprice(str) {
+            selectMC.price.forEach(function(element) {
+                for (const prop in element) {
+                    if (element[prop] == '64GB') {
+                        div4.innerHTML = `<p>${str}</p>`;
+                    } else if (element[prop] == '128GB') {
+                        div4.innerHTML = `<p>${str}</p>`;
+                    } else if (element[prop] == '256GB') {
+                        div4.innerHTML = `<p>${str}</p>`;
+                    }
+                }
+            })
+        }
+
+        function ipadselectprice(str) {
+            selectMC.price.forEach(function(element) {
+                for (const prop in element) {
+                    if (element[prop] == '32GB') {
+                        div4.innerHTML = `<p>${str}</p>`;
+                    } else if (element[prop] == '128GB') {
+                        div4.innerHTML = `<p>${str}</p>`;
+                    }
+                }
+            })
+        }
+
+        function macselectprice(str) {
+            selectMC.price.forEach(function(element) {
+                for (const prop in element) {
+                    if (element[prop] == '128GB') {
+                        div4.innerHTML = `<p>${str}</p>`;
+                    } else if (element[prop] == '256GB') {
+                        div4.innerHTML = `<p>${str}</p>`;
+                    }
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
