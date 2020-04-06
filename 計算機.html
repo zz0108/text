@@ -113,6 +113,7 @@
             var firstnum = 0;
             var secondnum = 0;
             var judgment = '';
+            var count = 0;
 
             function numberBtn(str) {
                 document.getElementById('box').value += str;
@@ -121,15 +122,23 @@
             function delBtn() {
                 document.getElementById('box').value = '';
             }
+            var num = 0;
 
             function calculated(str) {
                 firstnum = document.getElementById('box').value;
+                count = count + 1;
+                if (count == 2) {
+                    firstnum = num;
+                } else if (count == 1) {
+                    num = firstnum;
+                }
                 judgment = str;
                 delBtn();
             }
 
             function marvel() {
                 firstnum = document.getElementById('box').value;
+                count = 0;
                 var sum = 1;
                 for (let i = 1; i <= Number(firstnum); i++) {
                     sum = sum * i;
@@ -139,6 +148,7 @@
 
             function triangle(str) {
                 firstnum = document.getElementById('box').value;
+                count = 0;
                 switch (str) {
                     case 'sin':
                         document.getElementById('box').value = `${Math.sin(Number(firstnum))}`;
@@ -156,25 +166,30 @@
 
             function fraction() {
                 firstnum = document.getElementById('box').value;
+                count = 0;
                 document.getElementById('box').value = `${1/Number(firstnum)}`;
             }
 
             function sqrt() {
                 firstnum = document.getElementById('box').value;
+                count = 0;
                 document.getElementById('box').value = `${Math.sqrt(Number(firstnum))}`;
             }
 
             function log() {
                 firstnum = document.getElementById('box').value;
+                count = 0;
                 document.getElementById('box').value = `${Math.log(Number(firstnum))}`;
             }
 
             function exp() {
                 firstnum = document.getElementById('box').value;
+                count = 0;
                 document.getElementById('box').value = `${Math.exp(Number(firstnum))}`;
             }
 
             function del() {
+                count = 0;
                 firstnum = document.getElementById('box').value;
                 toarray = firstnum.split('');
                 toarray.pop();
@@ -184,6 +199,7 @@
 
             function equal() {
                 secondnum = document.getElementById('box').value;
+                count = 0;
                 switch (judgment) {
                     case '+':
                         document.getElementById('box').value = `${Number(firstnum)+Number(secondnum)}`;
