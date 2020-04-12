@@ -66,34 +66,43 @@
 
         window.onload = function() {
             let xhr = new XMLHttpRequest();
-            title.appendChild(h1);
+
+            var ipad = '';
             xhr.onload = function() {
+                title.appendChild(h1);
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var ipad = JSON.parse(this.responseText);
+                    var sortSku = document.getElementById('sortSku');
+                    var sortPrice = document.getElementById('sortPrice');
+                    var sortStorage = document.getElementById('sortstorage');
+                    var sortPicture = document.getElementById('sortpicture');
+
+                    Show(ipad);
+                    sortSku.onclick = function() {
+                        data.innerHTML = '';
+                        Show(ipad.sort(sortsku));
+                    }
+                    sortPrice.onclick = function() {
+                        data.innerHTML = '';
+                        Show(ipad.sort(sortprice));
+                    }
+                    sortStorage.onclick = function() {
+                        data.innerHTML = '';
+                        Show(ipad.sort(sortstorage));
+
+                    }
+                    sortPicture.onclick = function() {
+                        data.innerHTML = '';
+                        Show(ipad.sort(sortpicture));
+
+                    }
+
+                } else {
+                    h1.innerHTML = 'Sorry';
+                    title.appendChild(h1);
+                }
+
                 // document.getElementById('msg').innerHTML = this.responseText;
-                var ipad = JSON.parse(this.responseText);
-                var sortSku = document.getElementById('sortSku');
-                var sortPrice = document.getElementById('sortPrice');
-                var sortStorage = document.getElementById('sortstorage');
-                var sortPicture = document.getElementById('sortpicture')
-
-                Show(ipad);
-                sortSku.onclick = function() {
-                    data.innerHTML = '';
-                    Show(ipad.sort(sortsku));
-                }
-                sortPrice.onclick = function() {
-                    data.innerHTML = '';
-                    Show(ipad.sort(sortprice));
-                }
-                sortStorage.onclick = function() {
-                    data.innerHTML = '';
-                    Show(ipad.sort(sortstorage));
-
-                }
-                sortPicture.onclick = function() {
-                    data.innerHTML = '';
-                    Show(ipad.sort(sortpicture));
-
-                }
 
             }
             xhr.open("GET", 'http://127.0.0.1:5500/IPad.json');
