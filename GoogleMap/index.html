@@ -36,7 +36,7 @@
                     lng: 120.9522671
                 }
             });
-            map.data.loadGeoJson('http://127.0.0.1:5500/GoogleMap/Map.json');
+            map.data.loadGeoJson('https://b1050205603051.azurewebsites.net/GoogleMap/Map.json');
             var marker = map.data.setStyle(function(feature) {
                 if ((feature.getProperty('masksLeft') && feature.getProperty('childMasksLeft')) == 0) {
                     return {
