@@ -5,18 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="../modules/helpers.js"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             list-style: none;
-            text-align: center;
         }
     </style>
 </head>
 
 <body>
+    <h1>TaiwanAddress</h1>
     <template id="templateTitle">
         <tr>
             <th>縣市</th>
@@ -32,12 +31,12 @@
         </tr>
     </template>
     <script>
-        let body = $g('body');
-        let table = $c('table');
+        let body = document.querySelector('body');
+        let table = document.createElement('table');
         table.setAttribute("border", "2");
 
-        let thead = $c('thead');
-        let tbody = $c('tbody');
+        let thead = document.createElement('thead');
+        let tbody = document.createElement('tbody');
         table.appendChild(thead);
         table.appendChild(tbody);
         body.appendChild(table);
@@ -70,13 +69,13 @@
         }
 
         function addThead() {
-            let templateTitle = $g('#templateTitle');
+            let templateTitle = document.querySelector('#templateTitle');
             let cloneContent = templateTitle.content.cloneNode(true);
             thead.appendChild(cloneContent);
         }
 
         function addTbody(rowArray) {
-            let templateRow = $g('#templateRow');
+            let templateRow = document.querySelector('#templateRow');
             let cloneContent =
                 templateRow.content.cloneNode(true);
             let tds = cloneContent.querySelectorAll('td');
