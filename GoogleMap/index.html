@@ -36,7 +36,7 @@
                     lng: 120.9522671
                 }
             });
-            map.data.loadGeoJson('https://raw.githubusercontent.com/zz0108/text/master/GoogleMap/Map.json');
+            map.data.loadGeoJson('https://findmasks.herokuapp.com/places');
             var marker = map.data.setStyle(function(feature) {
                 if ((feature.getProperty('masksLeft') && feature.getProperty('childMasksLeft')) == 0) {
                     return {
@@ -55,13 +55,6 @@
                         title: `店名:${feature.getProperty('name')}\n剩餘大人口罩：${feature.getProperty('masksLeft')}\n剩餘小孩口罩：${feature.getProperty('childMasksLeft')}`,
                     };
                 }
-            });
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
-
-            marker.addListener('click', function() {
-                infowindow.open(map, marker);
             });
         }
     </script>
