@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <h1>寶可夢圖鑑列表</h1>
+    <button>載入寶可夢圖鑑列表 +1</button>
+    <button>載入寶可夢圖鑑列表 -1</button>
+    <button>載入寶可夢圖鑑列表 FOR</button>
+    <button onclick='window.close()'>掰掰</button>
+    <div id="container">
+
+    </div>
+
+    <script>
+        var imgNum = 1;
+        var imgName = '000'
+        $("button").eq(0).on("click", searchPokemonADD);
+        $("button").eq(1).on("click", searchPokemonMUL);
+        $("button").eq(2).on("click", searchPokemonFOR);
+
+        function searchPokemonADD() {
+            imgName = imgNum.toString().padStart(3, '0');
+            $("#container").append(`<img src='https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${imgName}.png' />`);
+            imgNum += 1;
+        }
+
+        function searchPokemonMUL() {
+            $("img").last().remove();
+            imgNum = imgNum - 1;
+        }
+
+        function searchPokemonFOR() {
+            for (imgNum = 1; imgNum < 809; imgNum++) {
+                imgName = imgNum.toString().padStart(3, '0');
+                $("#container").append(`<img src='https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${imgName}.png' />`);
+            }
+        }
+    </script>
+</body>
+
+</html>
