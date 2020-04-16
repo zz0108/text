@@ -24,10 +24,11 @@
         $("button").eq(0).on("click", searchPokemonADD);
         $("button").eq(1).on("click", searchPokemonMUL);
         $("button").eq(2).on("click", searchPokemonFOR);
+        $("img").on("click", searchPokemonMUL);
 
         function searchPokemonADD() {
             imgName = imgNum.toString().padStart(3, '0');
-            $("#container").append(`<img src='https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${imgName}.png' />`);
+            $("#container").append(`<img src='https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${imgName}.png'/>`);
             imgNum += 1;
         }
 
@@ -35,6 +36,10 @@
             $("img").last().remove();
             imgNum = imgNum - 1;
         }
+        $(document).on('click', 'img', function() {
+            $("img").last().remove();
+            imgNum = imgNum - 1;
+        });
 
         function searchPokemonFOR() {
             for (imgNum = 1; imgNum < 809; imgNum++) {
