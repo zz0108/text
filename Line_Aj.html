@@ -9,29 +9,226 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
+    <style>
+        .text {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            width: 150px;
+            position: absolute;
+            top: 120px;
+            left: 200px;
+        }
+        
+        #t2 {
+            text-align: center;
+        }
+        
+        #text {
+            justify-content: center;
+            align-content: center;
+            position: absolute;
+            top: 100px;
+        }
+        /* #lineChart2 {
+            z-index: -1;
+        } */
+    </style>
 </head>
 
 <body>
+
     <div class="container">
-        <canvas id="lineChart"></canvas>
+        <div class="row">
+            <div class="col-6" id="t1">
+                <canvas id="lineChart1"></canvas>
+            </div>
+            <div class="col-6 txt">
+                <div id="t2"></div>
+                <canvas id="lineChart2"></canvas>
+            </div>
+            <div class="col-6" id="t3">
+                <canvas id="lineChart3"></canvas>
+            </div>
+            <div class="col-6" id="t4">
+                <canvas id="lineChart4"></canvas>
+            </div>
+        </div>
+
     </div>
     <script>
-        var ctx = document.getElementById("lineChart");
+        var ctx1 = document.getElementById("lineChart1");
+        var ctx2 = document.getElementById("lineChart2");
+        var ctx3 = document.getElementById("lineChart3");
+        var ctx4 = document.getElementById("lineChart4");
+
+        $.ajax({
+            url: 'https://raw.githubusercontent.com/apprunner/FileStorage/master/Temperature.j',
+            type: "get",
+            dataType: "json",
+            success: function(json) {
+                chart1.data.labels = json.Label;
+                chart1.data.datasets[0].label = json.City;
+                chart1.data.datasets[0].data = json.Data;
+                console.log(json.Data);
+                chart1.update();
+            },
+            error: function() {
+                $("#t1").append('<div class="text">加載失敗</div>');
+                $("#lineChart1").css("opacity", "0.5")
+            }
+        });
+        $.ajax({
+            url: 'https://raw.githubusercontent.com/apprunner/FileStorage/master/Temperature.jso',
+            type: "get",
+            dataType: "json",
+            success: function(json) {
+                chart2.data.labels = json.Label;
+                chart2.data.datasets[0].label = json.City;
+                chart2.data.datasets[0].data = json.Data;
+                console.log(json.Data);
+                chart2.update();
+            },
+            error: function(json) {
+                $("#t2").append('<div class="spinner-border" role="status" id="text"><span class="sr-only">Loading...</span></div>');
+                $("#lineChart2").css("opacity", "0.5")
+            }
+        });
+
         $.ajax({
             url: 'https://raw.githubusercontent.com/apprunner/FileStorage/master/Temperature.json',
             type: "get",
             dataType: "json",
             success: function(json) {
-                chart.data.labels = json.Label;
-                chart.data.datasets[0].label = json.City;
-                chart.data.datasets[0].data = json.Data;
+                chart3.data.labels = json.Label;
+                chart3.data.datasets[0].label = json.City;
+                chart3.data.datasets[0].data = json.Data;
                 console.log(json.Data);
-                chart.update();
+                chart3.update();
+            }
+        });
+
+        $.ajax({
+            url: 'https://raw.githubusercontent.com/apprunner/FileStorage/master/Temperature.json',
+            type: "get",
+            dataType: "json",
+            success: function(json) {
+                chart4.data.labels = json.Label;
+                chart4.data.datasets[0].label = json.City;
+                chart4.data.datasets[0].data = json.Data;
+                console.log(json.Data);
+                chart4.update();
             }
         });
 
 
-        var chart = new Chart(ctx, {
+
+        var chart1 = new Chart(ctx1, {
+            type: "line",
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '',
+                    data: [],
+                    fill: false,
+                    backgroundColor: 'rgba(255,165,0,0.3)',
+                    borderColor: 'rgb(255,165,0)',
+                    pointStyle: "circle",
+                    pointBackgroundColor: 'rgb(0,255,0)',
+                    pointRadius: 5,
+                    pointHoverRadius: 10,
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    fontSize: 26,
+                    text: '1-6 月氣溫平均值'
+                },
+                tooltips: {
+                    mode: 'point',
+                    intersect: true,
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        fontColor: 'black',
+                    }
+                }
+            }
+        });
+        var chart2 = new Chart(ctx2, {
+            type: "line",
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '',
+                    data: [],
+                    fill: false,
+                    backgroundColor: 'rgba(255,165,0,0.3)',
+                    borderColor: 'rgb(255,165,0)',
+                    pointStyle: "circle",
+                    pointBackgroundColor: 'rgb(0,255,0)',
+                    pointRadius: 5,
+                    pointHoverRadius: 10,
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    fontSize: 26,
+                    text: '1-6 月氣溫平均值'
+                },
+                tooltips: {
+                    mode: 'point',
+                    intersect: true,
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        fontColor: 'black',
+                    }
+                }
+            }
+        });
+        var chart3 = new Chart(ctx3, {
+            type: "line",
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '',
+                    data: [],
+                    fill: false,
+                    backgroundColor: 'rgba(255,165,0,0.3)',
+                    borderColor: 'rgb(255,165,0)',
+                    pointStyle: "circle",
+                    pointBackgroundColor: 'rgb(0,255,0)',
+                    pointRadius: 5,
+                    pointHoverRadius: 10,
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    fontSize: 26,
+                    text: '1-6 月氣溫平均值'
+                },
+                tooltips: {
+                    mode: 'point',
+                    intersect: true,
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        fontColor: 'black',
+                    }
+                }
+            }
+        });
+        var chart4 = new Chart(ctx4, {
             type: "line",
             data: {
                 labels: [],
