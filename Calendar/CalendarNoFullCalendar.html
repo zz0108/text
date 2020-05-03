@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <title>Calendar</title>
+    <style>
+        * {
+            font-family: arial;
+        }
+        
+        #CalendarTitle {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            padding-right: 10%;
+            padding-left: 10%;
+        }
+        
+        #CalendarBody {
+            padding: 10px;
+            padding-right: 10%;
+            padding-left: 10%;
+        }
+        
+        #h1 {
+            margin-bottom: 5px;
+        }
+        
+        #CalendarTitle button {
+            height: 30px;
+            margin-bottom: 5px;
+            margin-left: 5px;
+            margin-top: 20px;
+            border-radius: 3px;
+            border: none;
+            outline: none;
+        }
+        
+        #CalendarTitle button:focus {
+            outline: none;
+        }
+        
+        #CalendarTitle button:first-child {
+            width: 100px;
+        }
+        
+        #saveModal_td:hover {
+            cursor: pointer;
+        }
+        
+        #CalendarTitle button:hover {
+            background-color: black;
+            color: white;
+            transition: 1s;
+        }
+        
+        th {
+            text-align: center;
+            width: 200px;
+            border: 1px solid #ccc;
+        }
+        
+        #tbody>td {
+            width: 180px;
+            border: 1px solid #ccc;
+            height: 100px;
+            flex: 0 0 14.28%;
+            overflow-y: hidden;
+            overflow-x: hidden;
+        }
+        
+        #tbody {
+            font-family: arial;
+            height: 100px;
+            display: flex;
+            flex-flow: row wrap;
+            align-content: flex-start;
+        }
+        
+        td {
+            vertical-align: text-top;
+            text-align: right;
+            word-break: break-all;
+        }
+        
+        .col-12 {
+            margin: 10px;
+        }
+        
+        @media screen and (max-width: 768px) {
+            #tbody>td {
+                height: 70px;
+            }
+        }
+        
+        #CalendarTitle {
+            padding-right: 5%;
+            padding-left: 5%;
+        }
+        
+        #CalendarBody {
+            padding-right: 5%;
+            padding-left: 5%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="CalendarTitle"></div>
+    <div id="CalendarBody">
+        <table>
+            <thead id="thead">
+                <tr>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                </tr>
+            </thead>
+        </table>
+        <table>
+            <tbody id="tbody"></tbody>
+        </table>
+    </div>
+
+    <!-- savemodal -->
+    <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="saveModalLabel" aria-hidden="true" catchtap="stopPropagation">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="saveModalLabel">Save</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12">日期：<input type="date" value="" id="inputdate"></div>
+                    <div class="col-12">時間：<input type="time" value="00:00" id="inputtime"></div>
+                    <div class="col-12">事件：<input type="text" id="inputtext"></div>
+                    <div class="col-12">顏色：<input type="color" id="inputcolor"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="Save">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- delandupmodal -->
+    <div class="modal fade" id="delandupModal" tabindex="-1" role="dialog" aria-labelledby="delandupModalLabel" aria-hidden="true" catchtap="stopPropagation">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delect And Updata</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12">日期：<input type="date" value="" id="delandupModalinputdate"></div>
+                    <div class="col-12">時間：<input type="time" value="00:00" id="delandupModalinputtime"></div>
+                    <div class="col-12">事件：<input type="text" id="delandupModalinputtext"></div>
+                    <div class="col-12">顏色：<input type="color" id="delandupModalinputcolor"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="Up">修改</button>
+                    <button type="button" class="btn btn-primary" id="Del">刪除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var data = new Date();
+        var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var OperationLastday = 0;
+        var momthData = data.getMonth();
+        var yearData = data.getFullYear();
+        var fullDays = 0;
+        var firstDays = 0;
+        var HTMLstr = '';
+        var chackday = 1;
+        var chacknextday = 0;
+        $('#CalendarTitle').html(`<h1 id='h1'>${month[momthData]}&nbsp${yearData}</h1>`);
+        $('#CalendarTitle').append(`<div><button id='toMonth'>toMonth</button><button id='Less'><</button><button id='Add'>></button></div>`);
+
+        $(document).ready(function() {
+            $('#toMonth').click();
+        });
+
+        $('#Less').click(function(e) {
+            let enddate = new Date();
+            let startdate = new Date();
+            e.preventDefault();
+            momthData--;
+            if (momthData < 0) {
+                chackday = 1;
+                chacknextday--
+                chackday = chackday + chacknextday * 12;
+                console.log(chackday)
+                yearData--;
+                momthData = 11;
+            }
+            enddate.setMonth(momthData + chackday);
+            enddate.setDate(1);
+            fullDays = enddate.getDate(enddate.setDate(enddate.getDate() - 1));
+            startdate.setMonth(momthData);
+            startdate.setDate(1);
+            firstDays = startdate.getDay();
+
+
+            ReFreshDate();
+        });
+        $('#Add').click(function(e) {
+            let enddate = new Date();
+            let startdate = new Date();
+            e.preventDefault();
+            momthData++;
+            if (momthData > 11) {
+                chackday = 1;
+                chacknextday++
+                chackday = chackday + chacknextday * 12;
+                console.log(chackday)
+                yearData++;
+                momthData = 0;
+            }
+            enddate.setMonth(momthData + chackday);
+            enddate.setDate(1);
+            fullDays = enddate.getDate(enddate.setDate(enddate.getDate() - 1));
+            startdate.setMonth(momthData);
+            startdate.setDate(1);
+            firstDays = startdate.getDay();
+
+            ReFreshDate();
+        });
+        $('#toMonth').click(function(e) {
+            let enddate = new Date();
+            let startdate = new Date();
+            e.preventDefault();
+            momthData = data.getMonth();
+            yearData = data.getFullYear();
+            enddate.setMonth(momthData + 1);
+            enddate.setDate(1);
+            fullDays = enddate.getDate(enddate.setDate(enddate.getDate() - 1));
+            startdate.setMonth(momthData);
+            startdate.setDate(1);
+            firstDays = startdate.getDay();
+            ReFreshDate();
+        });
+
+        $('#Save').click(function() {
+            let inputdate = document.getElementById('inputdate');
+            let inputtime = document.getElementById('inputtime');
+            let inputtext = document.getElementById('inputtext');
+            let inputcolor = document.getElementById('inputcolor');
+            var item = localStorage.getItem('item');
+            item = JSON.parse(item);
+            if (item == null) {
+                var item = [];
+            }
+            let dataobj = {};
+            dataobj = {
+                'date': inputdate.value,
+                'time': inputtime.value,
+                'text': inputtext.value,
+                'color': inputcolor.value
+            }
+            item.push(dataobj);
+            localStorage.setItem('item', JSON.stringify(item));
+            window.location.reload();
+        })
+
+        function ReFreshDate() {
+            var item = localStorage.getItem('item');
+            item = JSON.parse(item);
+
+            $('#h1').html(`${month[momthData]}&nbsp${yearData}`);
+            HTMLstr = '';
+            for (let i = 0; i < firstDays; i++) {
+                HTMLstr += `<td></td>`;
+            }
+            for (let i = 1; i <= fullDays; i++) {
+                HTMLstr += `<td type='button' class="saveModal_td">${i}<div id="setdata${i}"></div></td>`;
+            }
+            $('#tbody').html(HTMLstr);
+            for (let i = 1; i <= fullDays; i++) {
+                if (item == null) {
+                    break;
+                } else {
+                    item.forEach(function(element, index) {
+                        if (`${element.date}` == `${yearData}-${(momthData+1).toString().padStart(2, '0')}-${i.toString().padStart(2, '0')}`) {
+                            $(`#setdata${i}`).append(`<div class="div" id="delandup${index}" data-index="${index}">${element.text}</div>`);
+                            $(`#setdata${i}`).css('text-align', 'center');
+                            $(`#delandup${index}`).css({
+                                "color": "white",
+                                "background-color": `${element.color}`,
+                                "margin": "5px",
+                                "border-radius": "5px",
+                                'white-space': 'nowrap'
+                            });
+                            $(`#delandup${index}`).click(function(e) {
+                                e.stopPropagation();
+                                $("#delandupModal").modal('show');
+                            })
+                            $(`#delandup${index}`).click(function(e) {
+                                let del = e.currentTarget.getAttribute('data-index');
+                                $('#Del').click(function() {
+                                    var item = localStorage.getItem('item');
+                                    item = JSON.parse(item);
+                                    item.splice(Number(del), 1);
+                                    localStorage.setItem('item', JSON.stringify(item));
+                                    window.location.reload();
+                                })
+                            })
+                            $(`#delandup${index}`).click(function(e) {
+                                let del = e.currentTarget.getAttribute('data-index');
+                                $('#Up').click(function() {
+                                    var item = localStorage.getItem('item');
+                                    item = JSON.parse(item);
+                                    item.splice(Number(del), 1);
+                                    let inputdate = document.getElementById('delandupModalinputdate');
+                                    let inputtime = document.getElementById('delandupModalinputtime');
+                                    let inputtext = document.getElementById('delandupModalinputtext');
+                                    let inputcolor = document.getElementById('delandupModalinputcolor');
+                                    if (item == null) {
+                                        var item = [];
+                                    }
+                                    let dataobj = {};
+                                    dataobj = {
+                                        'date': inputdate.value,
+                                        'time': inputtime.value,
+                                        'text': inputtext.value,
+                                        'color': inputcolor.value
+                                    }
+                                    console.log(dataobj)
+                                    item.push(dataobj);
+                                    localStorage.setItem('item', JSON.stringify(item));
+                                    window.location.reload();
+                                })
+                            })
+                        }
+                    });
+                }
+            }
+            $(`.saveModal_td`).click(function(e) {
+                $("#saveModal").modal('show');
+            });
+            $(".saveModal_td").on("mouseenter mouseleave", function(event) { //挷定滑鼠進入及離開事件
+                if (event.type == "mouseenter") {
+                    $(this).css({
+                        "overflow-y": "scroll",
+                        "overflow-x": "scroll"
+                    }); //滑鼠進入
+                } else {
+                    $(this).scrollTop(0).css({
+                        "overflow-y": "hidden",
+                        "overflow-x": "hidden"
+                    }); //滑鼠離開
+                }
+            });
+        }
+    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+
+</html>
