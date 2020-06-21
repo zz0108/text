@@ -24,103 +24,13 @@
 <body>
     <div class="container">
         <div class="row" id="msg">
-            <!-- <template>
-                <div class="col-3">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="..." alt="Card image cap" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-            </template> -->
+
         </div>
     </div>
     <div id="data">
-        <!-- <template>
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    ...
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </template> -->
+      
     </div>
-    <script>
-        // var row = document.querySelector('#msg');
-        // var data = document.querySelector('#data');
-
-        // function fetchAddressJSON(url) {
-        //     fetch(url)
-        //         .then(response => response.text())
-        //         .then(data => {
-        //             data = JSON.parse(data);
-        //             data.forEach(function(item) {
-        //                 //row append
-        //                 let col3 = document.createElement('div');
-        //                 col3.className = 'col-3';
-        //                 let div = document.createElement('div');
-        //                 div.className = 'card';
-        //                 div.style = 'width: 18rem;';
-        //                 let img = document.createElement('img');
-        //                 img.className = 'card-img-top';
-        //                 img.src = item.icon;
-        //                 img.alt = 'Card image cap';
-        //                 img.setAttribute('class', 'card-img-top');
-        //                 img.setAttribute('data-toggle', 'modal');
-        //                 img.setAttribute('data-target', `#${item.id}`);
-        //                 let div1 = document.createElement('div');
-        //                 div1.className = 'card-body';
-        //                 let h5 = document.createElement('h5');
-        //                 h5.innerHTML = `${item.name}`;
-        //                 let p = document.createElement('p');
-        //                 p.className = 'card-text';
-        //                 p.innerHTML = `${item.stats.hp}`;
-        //                 div1.appendChild(h5);
-        //                 div1.appendChild(p);
-        //                 div.appendChild(img);
-        //                 div.appendChild(div1);
-        //                 col3.appendChild(div);
-        //                 row.appendChild(col3);
-
-        //                 //data append
-        //                 let data_div = document.createElement('div');
-        //                 data_div.className = 'modal fade';
-        //                 data_div.id = `${item.id}`;
-        //                 data_div.setAttribute('tabindex', "-1");
-        //                 data_div.setAttribute('role', "dialog");
-        //                 data_div.setAttribute('aria-labelledby', "exampleModalLongTitle");
-        //                 data_div.setAttribute('aria-hidden', "true");
-        //                 let data_div2 = document.createElement('div');
-        //                 data_div2.setAttribute('class', "modal-dialog");
-        //                 data_div2.setAttribute('role', "document");
-        //                 let data_div3 = document.createElement('div');
-        //                 data_div3.setAttribute('class', "modal-content");
-        //                 let data_div4 = document.createElement('div');
-        //                 data_div4.setAttribute('class', 'modal-header');
-        //             })
-        //         })
-        //         .catch(ex => {
-        //             document.querySelector('body').innerHTML = ex;
-        //         })
-        // }
-        // window.onload = fetchAddressJSON('https://raw.githubusercontent.com/zz0108/text/master/LOL/lol.json');
-
+    <script> 
         $.ajax({
             url: 'https://raw.githubusercontent.com/zz0108/text/master/LOL/lol.json',
             dataType: "json",
