@@ -1,45 +1,45 @@
 [{
         "title": "Sennheiser",
-        "image": "../img/categories/Sennheiser.png"
+        "image": "../../img/categories/Sennheiser.png"
     },
     {
         "title": "BeyerDynamic",
-        "image": "../img/categories/BeyerDynamic.png"
+        "image": "../../img/categories/BeyerDynamic.png"
     },
     {
         "title": "Audio-Technica",
-        "image": "../img/categories/Audio-Technica.jpg"
+        "image": "../../img/categories/Audio-Technica.jpg"
     },
     {
         "title": "Shure",
-        "image": "../img/categories/Shure.jpg"
+        "image": "../../img/categories/Shure.jpg"
     },
     {
         "title": "SONY",
-        "image": "../img/categories/SONY.png"
+        "image": "../../img/categories/SONY.png"
     },
     {
         "title": "SkullyCandy",
-        "image": "../img/categories/SkullyCandy.png"
+        "image": "../../img/categories/SkullyCandy.png"
     },
     {
         "title": "Beats",
-        "image": "../img/categories/Beats.png"
+        "image": "../../img/categories/Beats.png"
     },
     {
         "title": "DENON",
-        "image": "../img/categories/DENON.png"
+        "image": "../../img/categories/DENON.png"
     },
     {
         "title": "KOSS",
-        "image": "../img/categories/KOSS.jpg"
+        "image": "../../img/categories/KOSS.jpg"
     },
     {
         "title": "BOSE",
-        "image": "../img/categories/BOSE.png"
+        "image": "../../img/categories/BOSE.png"
     },
     {
         "title": "AKG",
-        "image": "../img/categories/AKG.jpg"
+        "image": "../../img/categories/AKG.jpg"
     }
 ]
